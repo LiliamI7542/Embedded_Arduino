@@ -1,0 +1,383 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>Remote control Arduino - RemoteXY</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="description" content="Online designer of graphical interface to control Arduino via smartphone or tablet" />
+<meta name="keywords" content="remotexy, remote control, device control, control over bluetooth, source code, projects, Arduino, Bluetooth, Android" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<link rel="stylesheet" href="/css/style_v3_4.css" />
+<link rel="stylesheet" href="/editor_v024.css" />
+<script type="text/javascript" src="/en/std_v3_2.js"></script>
+<script type="text/javascript" src="/en/editor_v024.js"></script>
+<link rel="alternate" type="application/rss+xml" href="/en/rss" title="Remote control Arduino - RemoteXY" />
+</head>
+<body onload="run ();">
+<div id="content">
+
+<div class="content_row"><div class="content_cell" style="height: 40px;">
+<div class="header_editor" id="header">
+ <div class="header_editor_logo hide_tablet"><a href="/en/" target="_blank"><img src="/img/v2/logo.png" /></a></div>
+ <div class="header_logo show_tablet"><a href="/en/"><img src="/img/v2/logo.png" /></a></div>
+ <div class="header_menu hide_tablet">
+  <div></div>
+  <div><a href="/en/download/" title="Download application" target="_blank">APP</a></div>
+  <div><a href="/en/help/" title="How RemoteXY works" target="_blank">HOW IT WORKS</a></div>
+  <div><a href="/en/examples/" title="Examples of projects" target="_blank">EXAMPLES</a></div>
+  <div><a href="/en/forum/" title="RemoteXY community" target="_blank">COMMUNITY</a></div>
+  <div><a href="/en/blog/" title="Blog" target="_blank">BLOG</a></div>
+  <div><a id="loginLink" href="/en/login/" title="Sign" onclick="openLoginWindow (''); return false;">SIGN</a>
+</div>
+  <div><a href="/en/editor/" onclick="return openLangWindow ();"><img src="/img/en.png"></a>
+</div>
+ </div>
+ <div class="header_menu show_tablet">
+  <div><a href="/" onclick="Windows_OpenAsMenu ('window_editor_mobile_menu',0); return false;"><img src="/img/menu.png"></a></div> 
+ </div>
+</div>
+</div></div>
+<div class="content_row"><div class="content_cell"><div class="editor_content" id="editor_content">
+<div id="editor_leftcol">
+ <div class="editor_col_header">
+  <div class="editor_col_close" onclick="Windows_Close ('editor_leftcol');"><img src="/img/left2x.png"></div>
+  <div class="editor_col_name">Elements</div>
+ </div>
+ <div class="editor_col_groups" id="editor_left_groups"></div>
+</div>
+<div id="editor_centercol">
+ <div class="editor_projectname_line" id="editor_project_name_line">
+  <div class="editor_projectname_button" onclick="openLeftCol ();"><img src="/img/add2x.png"></div>
+  <div class="editor_projectname_name" id="projectname"> </div>
+  <div class="editor_projectname_button" onclick="openRightCol ();"><img src="/img/settings2x.png"></div>
+ </div>
+ <div class="editor_field" id="editor_field">
+    <div class="editor_menu_line" id="editor_first_button_line">
+    <div class="editor_menu_item_button_green"><div onclick="return OnClickNewProject ();" title="New project"><img style="padding: 7px 0 0 9px;" src="/img/editor/button_new.png"></div></div>
+    <div class="editor_menu_item_button_green"><div onclick="return OnClickOpenProject ();" title="Open project"><img style="padding: 9px 0 0 7px;" src="/img/editor/button_open.png"></div></div>
+    <div class="editor_menu_item_button_green"><div onclick="return OnClickSaveProject ();" title="Save project"><img style="padding: 7px 0 0 8px;" src="/img/editor/button_save.png"></div></div>
+    <div class="editor_menu_item_button_green"><div onclick="return OnClickSaveProjectAs ();" title="Save project as..."><img style="padding: 7px 0 0 8px;" src="/img/editor/button_saveas.png"></div></div>
+    <div class="editor_menu_item_getcode" id="editor_button_getcode"><div onclick="return onclickGetSourceCode ();"><span class="hide_mobile">Get source code</span><span class="show_mobile">Get code</span></div></div> 
+   </div>
+   <div class="editor_menu_line" id="editor_second_button_line">
+    <div class="editor_menu_item_button_orange" id="editor_button_horizontal" style="display:none;"><div onclick="return OnClickOrientation (0);" title="Horizontal orientation"><img style="padding: 10px 0 0 5px;" src="/img/editor/button_horizontal.png"></div></div>
+    <div class="editor_menu_item_button_orange" id="editor_button_vertical" style="display:none;"><div onclick="return OnClickOrientation (1);" title="Vertical orientation"><img style="padding: 5px 0 0 10px;" src="/img/editor/button_vertical.png"></div></div>
+   </div>
+   <img id="editor_phone" src="">
+   <canvas id="editor" class="editor_screen" width="463" height="292">
+    <div class="editor_screen_error">You browser<br>does not support HTML 5.0</div>
+   </canvas>
+ </div>
+</div>
+<div id="editor_rightcol">
+ <div class="editor_col_header">
+   <div class="editor_col_name">Properties</div>
+   <div class="editor_col_close" onclick="Windows_Close ('editor_rightcol');"><img src="/img/right2x.png"></div>
+ </div>
+ <div class="editor_col_groups" id="editor_right_groups"></div>
+</div>
+</div>
+
+
+<div id="window_cookie" class="window_cookie">
+<div class="window_cookie_el w100">
+This website uses cookies to ensure you get the best experience on our website
+<a href="/en/cookieinfo/">Learn more</a>
+</div>
+<div class="window_cookie_el window_cookie_link" onclick="closeCookieWindow('decline');" style="display: none;">Decline</div>
+<div class="window_cookie_el"><div class="window_cookie_button" onclick="closeCookieWindow('allow');"><nobr>Allow cookies</nobr></div></div>
+</div>
+<script type="text/javascript">
+function openCookieWindow () {
+  var bottom = -70;
+  var el = document.getElementById("window_cookie");
+  var timer = setInterval (function() {
+    el.style.bottom=bottom+'px';
+    bottom=bottom+5;
+    if (bottom>0) clearTimeout (timer);
+ }, 50);
+}
+function closeCookieWindow (act) {
+  var el = document.getElementById("window_cookie");
+  el.style.bottom='-70px';
+  var xmlhttp = getXmlHttp(); 
+  xmlhttp.open('GET', '/cookie/?action='+act, true);
+  xmlhttp.send(null);
+}
+
+var openCookieWindowTimer = setTimeout (openCookieWindow, 2000);
+
+
+</script>
+<style type="text/css">
+.window_cookie {
+ position: fixed;
+ bottom: -70px;
+ height: 70px;
+ width: 100%; 
+ background-color:#229999; 
+ color: #fff; 
+ font-size: 12px; 
+ display:table; 
+}
+
+.window_cookie_el {
+ display: table-cell; 
+ height:100%;
+ padding: 0 30px; 
+ vertical-align:middle;
+}
+.window_cookie_el a {
+ color: #ccc; 
+ text-decoration: underline;
+ padding: 0 10px;
+ transition: 0.2s;
+}
+.window_cookie_el a:hover {
+ color: #fff; 
+}
+.window_cookie_link {
+  cursor: pointer;
+ transition: 0.2s;
+}
+.window_cookie_link:hover {
+ text-decoration: underline;
+}
+.window_cookie_button {
+ display: table-cell; 
+ height: 32px; 
+ background-color:#66FFAA; 
+ color: #000; 
+ font-weight: bold; 
+ padding: 0 20px; 
+ vertical-align:middle; 
+ -webkit-border-radius:6px; 
+ -moz-border-radius:6px; 
+ border-radius:6px;
+ cursor: pointer;
+ transition: 0.2s;
+}
+.window_cookie_button:hover {
+ background-color:#8CFFD0; 
+}
+@media screen and (max-width: 767px) {
+ .window_cookie_el {
+   padding: 0 5px; 
+   text-align: center;
+ }
+ .window_cookie_button {
+  padding: 0 5px; 
+ }
+}
+
+</style></div></div>
+<div class="content_row"><div class="content_cell" style="height: 6px;">
+<div class="footer_editor" id="footer">
+</div>
+</div></div>
+
+
+
+</div>
+ 
+<div id="windows" style="display: none;">
+
+<div id="windows_place">
+<div id="window_login" class="window window_form" style="display:none;">
+<div class="window_header">
+ <div class="window_header_name">Sign in</div>
+ <div class="window_header_close"><a href="#" onclick="Windows_Close (); return false;">Close</a></div>
+</div>   
+<div class="window_message" id="window_login_message" style="display:none;"></div>
+<div class="window_body">
+ <form id="window_login_form" action="/en/login/" method="POST">
+ <div class="window_item">
+  <div class="window_item_name">Email:</div>
+  <input type="text" id="win_login_name" class="window_input w100" name="email">
+ </div>
+ <div class="window_item">
+  <div class="window_item_name">Password:</div>
+  <input type="password" id="win_login_pass" class="window_input w100" name="pass">
+ </div>
+ <div class="window_link"><a href="/en/forgotpassword/">Forgot password?</a></div>
+ <div class="window_line">
+ <div class="window_buttons_left">
+  <div class="window_button"><a href="#" onclick="document.getElementById('window_login_form').submit(); return false;">Sign in</a></div>
+  <div class="window_button"><a href="/en/registration/">Create account</a></div>
+ </div>
+ </div>
+ </form>
+</div>
+</div>
+<script type="text/javascript">
+function openLoginWindow (m) {
+ var d=document.getElementById('window_login_message');
+ d.innerHTML=m;
+ if (m=='') d.style.display="none";
+ else d.style.display="block";
+ Windows_Open ('window_login');
+}
+</script><div id="window_editor_mobile_menu" class="window window_mobile_menu" style="display:none;">
+<div class="window_header">
+ <div class="window_header_name"></div>
+ <div class="window_header_close"><a href="#" onclick="Windows_Close (); return false;">Close</a></div>
+</div>
+<div class="window_body">
+<div class="window_mobile_menu_items">
+<div><a href="/en/download/" target="_blank">APP</a></div>
+<div><a href="/en/help/" target="_blank">HOW IT WORKS</a></div>
+<div><a href="/en/examples/" target="_blank">EXAMPLES</a></div>
+<div><a href="/en/forum/" onClick="Windows_Close ('window_mobile_menu');" target="_blank">COMMUNITY</a></div>
+<div><a href="/en/blog/" title="Blog" target="_blank">BLOG</a></div>
+<div><a id="loginLink" href="/en/login/" title="Sign" onclick="openLoginWindow (''); return false;">SIGN</a>
+</div>
+<div><a href="/en/editor/" onclick="return openLangWindow ();"><img src="/img/en.png"></a>
+</div>
+</div></div></div>
+<div id="window_message" class="window window_form" style="display:none;">
+<div class="window_header">
+ <div class="window_header_name" id="window_message_title"></div>
+ <div class="window_header_close"><a href="#" onclick="Windows_Close ('window_message'); return false;">Close</a></div>
+</div>   
+<div class="window_message" id="window_message_message"></div>
+<div class="window_body">
+<div class="window_line"><div class="window_buttons_left">
+ <div class="window_button"><a href="#" onclick="Windows_Close ('window_message'); return false;">Close</a></div>
+</div></div>
+</div>
+</div>
+
+<div id="window_error" class="window window_form" style="display:none;">
+<div class="window_header">
+ <div class="window_header_name">Error</div>
+ <div class="window_header_close"><a href="#" onclick="Windows_Close ('window_error'); return false;">Close</a></div>
+</div>   
+<div class="window_error" id="window_error_message"></div>
+<div class="window_body">
+<div class="window_line"><div class="window_buttons_left">
+ <div class="window_button"><a href="#" onclick="Windows_Close ('window_error'); return false;">Close</a></div>
+</div></div>
+</div>
+</div><div id="win_nosave" class="window window_form" style="display:none;">
+<div class="window_header">
+ <div class="window_header_name">The project is not saved</div>
+ <div class="window_header_close"><a href="#" onclick="Windows_Close ('win_nosave'); return false;">Close</a></div>
+</div>   
+<div class="window_message" id="window_nosave_message">Save the current project?</div>
+<div class="window_body">
+<div class="window_line"><div class="window_buttons_left">
+ <div class="window_button"><a id="win_nosave_button_save" href="#" onclick="return false;">Save</a></div>
+ <div class="window_button"><a id="win_nosave_button_nosave" href="#" onclick="return false;">Not save</a></div>
+</div></div>
+</div>
+</div>
+
+<div id="win_saveas" class="window window_form" style="display:none;">
+<div class="window_header">
+ <div class="window_header_name">Save project as</div>
+ <div class="window_header_close"><a href="#" onclick="Windows_Close ('win_saveas'); return false;">Close</a></div>
+</div>   
+<div class="window_body">
+ <div class="window_item">
+  <div class="window_item_name">Project name:</div>
+  <input type="text" id="win_saveas_name" class="window_input w100">
+ </div>
+<div class="window_line"><div class="window_buttons_left">
+ <div class="window_button"><a id="win_saveas_button_save" href="#" onclick="return false;">Save</a></div>
+ <div class="window_button"><a href="#" onclick="Windows_Close ('win_saveas'); return false;">Not save</a></div>
+</div></div>
+</div>
+</div>
+
+<div id="win_message_save_ok" class="window window_form" style="display:none;">
+<div class="window_header">
+ <div class="window_header_name">Project was saved</div>
+ <div class="window_header_close"><a href="#" onclick="Windows_Close ('win_message_save_ok'); return false;">Close</a></div>
+</div>   
+<div class="window_message">The project was successfully saved</div>
+<div class="window_body">
+<div class="window_line"><div class="window_buttons_left">
+ <div class="window_button"><a href="#" onclick="Windows_Close ('win_message_save_ok'); return false;">Not save</a></div>
+</div></div>
+</div>
+</div>
+
+<div id="win_question_save" class="window window_form" style="display:none;">
+<div class="window_header">
+ <div class="window_header_name">Project already exists</div>
+ <div class="window_header_close"><a href="#" onclick="Windows_Close ('win_question_save'); return false;">Close</a></div>
+</div>   
+<div class="window_message">A project with this name already exists. To continue saving the project?</div>
+<div class="window_body">
+<div class="window_line"><div class="window_buttons_left">
+ <div class="window_button"><a id="win_question_save_button_save" href="#" onclick="return false;">Save</a></div>
+ <div class="window_button"><a href="#" onclick="Windows_Close ('win_question_save'); return false;">Not save</a></div>
+</div></div>
+</div> 
+</div>
+
+<div id="win_saveerror" class="window window_form" style="display:none;">
+<div class="window_header">
+ <div class="window_header_name">The project is not saved</div>
+ <div class="window_header_close"><a href="#" onclick="Windows_Close ('win_saveerror'); return false;">Close</a></div>
+</div>   
+<div class="window_message" id="window_nosave_message">An error occurred while saving project. The project is not saved.</div>
+<div class="window_body">
+<div class="window_line"><div class="window_buttons_left">
+ <div class="window_button"><a href="#" onclick="Windows_Close ('win_saveerror'); return false;">Close</a></div>
+</div></div>
+</div>
+</div>
+
+<div id="window_scheme" class="window window_scheme" style="display:none;">
+<div class="window_body">
+  <div id="window_scheme_body" class="window_scheme_body"></div>
+  <div class="window_scheme_button_line"><div class="window_buttons_left">
+   <div class="window_button"><div id="window_scheme_button_apply">Apply</div></div>
+   <div class="window_button"><div onclick="Windows_Close (); return false;">Cancel</div></div>
+  </div></div>
+</div>
+</div>
+
+<div id="window_text" class="window window_text" style="display:none;">
+<div class="window_header">
+ <div class="window_header_name">Project JSON</div>
+ <div class="window_header_close"><a href="#" onclick="Windows_Close ('window_text'); return false;">Close</a></div>
+</div>   
+<div class="window_message" id="window_text_message" style="overflow: auto; height: 570px;"></div>
+<div class="window_body">
+<div class="window_line"><div class="window_buttons_left">
+ <div class="window_button"><a href="#" onclick="Windows_Close ('win_saveerror'); return false;">Close</a></div>
+</div></div>
+</div>
+</div>
+
+
+</div>
+</div>      
+<div id="actions" style="display: none;">
+<div id="action_lang" class="window_lang" style="display:none;">
+ <div class="window_lang_item"><a class="div_topmenu_item" href="/en/editor/" onclick="location.href='/en/editor/'"><img src="/img/en.png">English</a></div>
+ <div class="window_lang_item"><a class="div_topmenu_item" href="/ru/editor/" onclick="location.href='/ru/editor/'"><img src="/img/ru.png">Русский</a></div>
+</div>
+<script type="text/javascript">
+function openLangWindow () {
+ var hel=getElementPosition(document.getElementById('header'));
+ Windows_Close ();
+ Actions_Open ("action_lang", hel.left+hel.width-40, 70, 1);
+ return false;             
+}
+</script><div id="div_contextmenu" class="editor_contextmenu" style="display:none;"></div>
+
+</div>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=367450580"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', '367450580');
+</script><script type="text/javascript">
+var usertokens=[];
+</script>
+</body>
+</html>
